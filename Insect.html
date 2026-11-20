@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>INSECTO ROBOT APP</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100%;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+  touch-action: pan-y;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: #181124; /* Fondo violeta oscuro profundo */
+  color: #f3e8ff; /* Texto lavanda claro */
+  font-family: Arial, sans-serif;
+  text-align: center;
+  overflow-x: hidden;
+  overflow-y: auto;
+  touch-action: pan-y;
+}
+
+header {
+  background: #d8b4fe; /* Lavanda brillante */
+  color: #2e1065; /* Texto morado oscuro para buen contraste */
+  padding: 15px;
+  font-size: 22px;
+  font-weight: bold;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+
+#arena {
+  width: 95%;
+  height: 300px;
+  background: #231638; /* Violeta oscuro para el área de juego */
+  border: 3px solid #c084fc; /* Borde lavanda neón */
+  border-radius: 15px;
+  margin: 10px auto;
+  position: relative;
+  overflow: hidden;
+  touch-action: pan-y;
+}
+
+#insecto {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  transition: left .2s, top .2s;
+  width: 70px;
+  height: 70px;
+  pointer-events: none;
+}
+
+.cuerpo {
+  width: 38px;
+  height: 55px;
+  background: linear-gradient(#4c1d95, #2e1065); /* Gradiente morado oscuro */
+  border-radius: 50%;
+  border: 2px solid #e9d5ff; /* Borde lavanda suave */
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+.ojo {
+  width: 8px;
+  height: 8px;
+  background: #e9d5ff;
+  border-radius: 50%;
+  display: inline-block;
+  margin: 3px;
+  box-shadow: 0 0 8px #c084fc; /* Brillo morado */
+}
+
+.antena {
+  width: 2px;
+  height: 18px;
+  background: #c084fc;
+  position: absolute;
+  top: -16px;
+  transform-origin: bottom;
+}
+
+.antena.izq {
+  left: 7px;
+  transform: rotate(-20deg);
+}
+
+.antena.der {
+  right: 7px;
+  transform: rotate(20deg);
+}
+
+.pata {
+  position: absolute;
+  width: 22px;
+  height: 3px;
+  background: #a855f7;
+  border: 1px solid #c084fc;
+}
+
+.i1 { top: 8px; left: -18px; transform: rotate(-30deg); }
+.i2 { top: 22px; left: -20px; }
+.i3 { top: 36px; left: -18px; transform: rotate(30deg); }
+.d1 { top: 8px; right: -18px; transform: rotate(30deg); }
+.d2 { top: 22px; right: -20px; }
+.d3 { top: 36px; right: -18px; transform: rotate(-30deg); }
+
+.saludando .antena.der {
+  animation: saludo .3s infinite alternate;
+}
+
+@keyframes saludo {
+  from { transform: rotate(20deg); }
+  to { transform: rotate(70deg); }
+}
+
+#controles {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  width: 90%;
+  max-width: 300px;
+  margin: 15px auto;
+}
+
+.btn {
+  padding: 20px 0;
+  font-size: 24px;
+  background: #3b0764; /* Violeta intenso */
+  border: 2px solid #c084fc;
+  color: #e9d5ff;
+  border-radius: 15px;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  cursor: pointer;
+}
+
+.btn:active {
+  background: #c084fc;
+  color: #2e1065;
+}
+
+.btn-saludar {
+  grid-column: 1 / 4;
+  background: #8b5cf6; /* Morado violeta vibrante */
+  border-color: #a855f7;
+  color: white;
+  font-size: 18px;
+  padding: 15px;
+}
+
+.card {
+  background: #231638;
+  border: 2px solid #a855f7;
+  border-radius: 15px;
+  padding: 15px;
+  margin: 15px 10px;
+  text-align: left;
+  overflow-wrap: anywhere;
+}
+
+.card h2 {
+  color: #d8b4fe;
+  text-align: center;
+  margin: 5px 0;
+}
+
+.img-box {
+  width: 100%;
+  background: #3b0764;
+  border-radius: 10px;
+  padding: 8px;
+  margin: 8px 0;
+}
+
+.img-box img {
+  display: block;
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 8px;
+  background: #181124;
+}
+
+input[type="file"] {
+  width: 100%;
+  max-width: 100%;
+  margin: 8px 0;
+  color: #e9d5ff;
+}
+
+audio {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+}
+
+button {
+  font-family: inherit;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>🎙️ PODCAST DEL INSECTO ROBOT</header>
+
+<div id="arena">
+  <div id="insecto">
+    <div class="antena izq"></div>
+    <div class="antena der"></div>
+    <div class="pata i1"></div>
+    <div class="pata i2"></div>
+    <div class="pata i3"></div>
+    <div class="pata d1"></div>
+    <div class="pata d2"></div>
+    <div class="pata d3"></div>
+    <div class="cuerpo">
+      <div class="ojo"></div>
+      <div class="ojo"></div>
+    </div>
+  </div>
+</div>
+
+<div id="controles">
+  <div></div>
+  <button class="btn" onclick="mover('arriba')">↑</button>
+  <div></div>
+
+  <button class="btn" onclick="mover('izquierda')">←</button>
+  <button class="btn" onclick="mover('abajo')">↓</button>
+  <button class="btn" onclick="mover('derecha')">→</button>
+
+  <button class="btn btn-saludar" onclick="saludar()">
+    👋 SALUDAR
+  </button>
+</div>
+
+<div class="card">
+  <h2>📸 2 Imágenes del Robot</h2>
+
+  <div class="img-box">
+    <p>IMAGEN 1 - De tu galería</p>
+    <input type="file" accept="image/*"
+      onchange="cargarImg(this,'img1')">
+    <img id="img1" alt="Primera imagen del robot">
+  </div>
+
+  <div class="img-box">
+    <p>IMAGEN 2 - De tu galería</p>
+    <input type="file" accept="image/*"
+      onchange="cargarImg(this,'img2')">
+    <img id="img2" alt="Segunda imagen del robot">
+  </div>
+</div>
+
+<div class="card">
+  <h2>🎧 Audio de Voz - Podcast</h2>
+
+  <p>1. Graba tu voz aquí mismo:</p>
+
+  <button class="btn btn-saludar"
+    style="width:100%"
+    onclick="grabarAudio()">
+    🎤 Grabar / Parar
+  </button>
+
+  <p id="estadoAudio"
+     style="color:#d8b4fe;text-align:center">
+  </p>
+
+  <audio id="player" controls></audio>
+
+  <p>2. O sube un audio de tu celular:</p>
+  <input type="file" accept="audio/*"
+    onchange="cargarAudio(this)">
+</div>
+
+<div class="card">
+  <h3 style="color:#d8b4fe">
+    🔧 ¿Cómo hacer el robot real?
+  </h3>
+
+  <p style="font-size:13px">
+    <b>Materiales:</b> Arduino Nano, 4 servos SG90,
+    batería y acrílico.
+    <br><br>
+    <b>Pasos:</b> Arma el cuerpo, conecta los servos
+    a Arduino y programa una caminata.
+    <br><br>
+    Costo estimado: $500 MXN.
+  </p>
+</div>
+
+<script>
+let x = 50;
+let y = 50;
+
+const insecto = document.getElementById('insecto');
+
+function mover(dir) {
+  if (dir === 'arriba' && y > 15) y -= 12;
+  if (dir === 'abajo' && y < 85) y += 12;
+  if (dir === 'izquierda' && x > 15) x -= 12;
+  if (dir === 'derecha' && x < 85) x += 12;
+
+  insecto.style.left = x + '%';
+  insecto.style.top = y + '%';
+
+  if (navigator.vibrate) navigator.vibrate(30);
+}
+
+function saludar() {
+  insecto.classList.add('saludando');
+
+  if (navigator.vibrate) {
+    navigator.vibrate([50, 50, 100]);
+  }
+
+  setTimeout(() => {
+    insecto.classList.remove('saludando');
+  }, 2000);
+}
+
+let urlsImagenes = [];
+
+function cargarImg(input, id) {
+  const file = input.files[0];
+
+  if (file) {
+    const url = URL.createObjectURL(file);
+    urlsImagenes.push(url);
+    document.getElementById(id).src = url;
+  }
+}
+
+let urlAudio;
+let mediaRecorder;
+let audioChunks = [];
+let grabando = false;
+
+function cargarAudio(input) {
+  const file = input.files[0];
+
+  if (file) {
+    if (urlAudio) URL.revokeObjectURL(urlAudio);
+
+    urlAudio = URL.createObjectURL(file);
+    document.getElementById('player').src = urlAudio;
+    document.getElementById('estadoAudio').innerText =
+      '✅ Audio cargado';
+  }
+}
+
+async function grabarAudio() {
+  const estado = document.getElementById('estadoAudio');
+  const player = document.getElementById('player');
+
+  try {
+    if (grabando && mediaRecorder) {
+      mediaRecorder.stop();
+      grabando = false;
+      estado.innerText = '⏳ Procesando audio...';
+      return;
+    }
+
+    if (!navigator.mediaDevices ||
+        !navigator.mediaDevices.getUserMedia ||
+        !window.MediaRecorder) {
+      estado.innerText =
+        'Tu navegador no permite grabar aquí. Abre la página en un navegador compatible y usa HTTPS.';
+      return;
+    }
+
+    const stream = await navigator.mediaDevices.getUserMedia({
+      audio: true
+    });
+
+    const tipos = [
+      'audio/webm;codecs=opus',
+      'audio/webm',
+      'audio/mp4'
+    ];
+
+    let opciones = {};
+
+    if (MediaRecorder.isTypeSupported) {
+      const tipo = tipos.find(t =>
+        MediaRecorder.isTypeSupported(t)
+      );
+
+      if (tipo) opciones.mimeType = tipo;
+    }
+
+    mediaRecorder = new MediaRecorder(stream, opciones);
+    audioChunks = [];
+
+    mediaRecorder.ondataavailable = e => {
+      if (e.data.size > 0) audioChunks.push(e.data);
+    };
+
+    mediaRecorder.onstop = () => {
+      const blob = new Blob(audioChunks, {
+        type: mediaRecorder.mimeType || 'audio/webm'
+      });
+
+      if (urlAudio) URL.revokeObjectURL(urlAudio);
+
+      urlAudio = URL.createObjectURL(blob);
+      player.src = urlAudio;
+
+      estado.innerText = '✅ Audio grabado correctamente';
+
+      stream.getTracks().forEach(track => track.stop());
+    };
+
+    mediaRecorder.start();
+    grabando = true;
+
+    estado.innerText =
+      '🔴 Grabando... toca de nuevo para detener';
+
+  } catch (error) {
+    grabando = false;
+    estado.innerText =
+      '❌ No se pudo acceder al micrófono. Revisa los permisos.';
+  }
+}
+</script>
+
+</body>
+</html>

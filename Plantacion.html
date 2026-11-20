@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Huerto Orgánico y Árbol de Durazno</title>
+  
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f3f7f0;
+      color: #2e3d29;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      touch-action: manipulation;
+    }
+
+    header {
+      background-color: #2e5a27;
+      color: #ffffff;
+      text-align: center;
+      padding: 25px 20px 15px 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 2.2em;
+      letter-spacing: 0.5px;
+    }
+
+    p.subtitulo {
+      font-style: italic;
+      margin-top: 8px;
+      color: #d2e8ca;
+    }
+
+  
+    nav.navegacion-pestanas {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .btn-pestana {
+      background-color: #1e3a19;
+      color: #d2e8ca;
+      border: 2px solid #2e5a27;
+      padding: 10px 22px;
+      border-radius: 20px 20px 0 0;
+      cursor: pointer;
+      font-size: 1em;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+
+    .btn-pestana.activa, .btn-pestana:hover {
+      background-color: #f3f7f0;
+      color: #2e5a27;
+      border-bottom: 2px solid #f3f7f0;
+    }
+
+    .seccion-pestana {
+      display: none;
+    }
+
+    .seccion-pestana.activa {
+      display: flex;
+    }
+
+    .contenedor {
+      max-width: 1000px;
+      margin: 30px auto;
+      padding: 0 20px;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    .tarjeta {
+      background-color: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(46, 90, 39, 0.08);
+      border: 1px solid #e1ebe0;
+      overflow: hidden;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      transition: transform 0.2s ease;
+    }
+
+    .tarjeta:hover {
+      transform: translateY(-2px);
+    }
+
+    .tarjeta img, .tarjeta video {
+      width: 45%;
+      height: 280px;
+      object-fit: cover;
+    }
+
+    .contenido {
+      padding: 25px;
+      width: 55%;
+    }
+
+    .contenido h2 {
+      color: #2e5a27;
+      margin-top: 0;
+      font-size: 1.5em;
+    }
+
+    .contenido p {
+      line-height: 1.6;
+      font-size: 1em;
+      color: #44543f;
+    }
+
+    footer {
+      text-align: center;
+      padding: 18px;
+      background-color: #1e3a19;
+      color: #e2f0df;
+      margin-top: 50px;
+      font-size: 0.9em;
+    }
+
+    #cursor-hoja {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      width: 38px;
+      height: 38px;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%2343a047"><path d="M17 8C8 10 5.9 16.17 3.82 21.34L5.71 22l.85-2.55C10 18 16 16 22 9c0 0 0-5-5-1z"/></svg>');
+      background-size: contain;
+      background-repeat: no-repeat;
+      pointer-events: none;
+      z-index: 10000;
+      transform: translate(-50%, -50%) rotate(-15deg);
+      transition: transform 0.1s ease-out;
+      filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.25));
+    }
+
+    .efecto-estrella {
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      user-select: none;
+      font-size: 18px;
+      color: #FFD700;
+      text-shadow: 0 0 6px #ffae00;
+      transform: translate(-50%, -50%);
+      animation: animacionEstrella 0.6s linear forwards;
+    }
+
+    @keyframes animacionEstrella {
+      0% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1) rotate(0deg);
+      }
+      100% {
+        opacity: 0;
+        transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(0.2) rotate(180deg);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .tarjeta {
+        flex-direction: column;
+      }
+      .tarjeta img, .tarjeta video, .contenido {
+        width: 100%;
+      }
+      .tarjeta img, .tarjeta video {
+        height: 240px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="cursor-hoja"></div>
+
+  <header>
+    <h1>Nuestro Huerto y Árbol de Durazno</h1>
+    <p class="subtitulo">Espacio agroecológico y cultivo natural del grupo</p>
+    
+  
+    <nav class="navegacion-pestanas">
+      <button class="btn-pestana activa" onclick="cambiarPestana('huerto')">Nuestro Huerto</button>
+      <button class="btn-pestana" onclick="cambiarPestana('polinizadoras')">Plantas Polinizadoras</button>
+    </nav>
+  </header>
+
+
+  <main id="pestana-huerto" class="contenedor seccion-pestana activa">
+
+    <article class="tarjeta">
+      <img src="huerto.jpg" alt="Vista general del huerto del grupo">
+      <div class="contenido">
+        <h2>Nuestro Huerto Completo</h2>
+        <p>Un espacio sustentable dedicado al cultivo orgánico en equipo. En este ecosistema integramos diversas plantas, compostaje y abonos naturales para mantener la tierra fértil y promover la biodiversidad local.</p>
+      </div>
+    </article>
+
+    <article class="tarjeta">
+      <video src="durazz.mp4" controls></video>
+      <div class="contenido">
+        <h2>Nuestro Árbol de Durazno</h2>
+        <p>El árbol central de nuestro cultivo. Le brindamos cuidados especiales mediante podas de formación, riego controlado y fertilización limpia para asegurar una gran floración y frutos jugosos en cada temporada.</p>
+      </div>
+    </article>
+
+  </main>
+
+  <!-- Pestaña 2: Plantas Polinizadoras -->
+  <main id="pestana-polinizadoras" class="contenedor seccion-pestana">
+
+    <article class="tarjeta">
+      <img src="lavanda.jpg" alt="Planta de Lavanda">
+      <div class="contenido">
+        <h2>Lavanda</h2>
+        <p>Aromática y resistente, sus flores púrpuras son una de las fuentes favoritas de néctar para abejas y mariposas durante toda la primavera y verano.</p>
+      </div>
+    </article>
+
+    <article class="tarjeta">
+      <img src="girasol.jpg" alt="Planta de Girasol">
+      <div class="contenido">
+        <h2>Girasol</h2>
+        <p>Su gran flor central produce abundante polen y néctar, atrayendo abejorros y diversos insectos polinizadores que mejoran la salud de todo el huerto.</p>
+      </div>
+    </article>
+
+    <article class="tarjeta">
+      <img src="romero.jpg" alt="Planta de Romero">
+      <div class="contenido">
+        <h2>Romero</h2>
+        <p>Una planta perenne ideal para el huerto. Florece en diversas épocas del año, ofreciendo alimento constante a polinizadores cuando otras plantas no están en flor.</p>
+      </div>
+    </article>
+
+  </main>
+
+  <footer>
+    <p>Proyecto Agroecológico del Grupo • Cuidado Ambiental y Naturaleza</p>
+  </footer>
+
+  <script>
+    
+    function cambiarPestana(nombrePestana) {
+      
+      document.querySelectorAll('.seccion-pestana').forEach(pestana => {
+        pestana.classList.remove('activa');
+      });
+
+      
+      document.querySelectorAll('.btn-pestana').forEach(btn => {
+        btn.classList.remove('activa');
+      });
+
+      
+      document.getElementById('pestana-' + nombrePestana).classList.add('activa');
+
+    
+      event.currentTarget.classList.add('activa');
+    }
+
+  
+    const hoja = document.getElementById('cursor-hoja');
+    let ultimoTiempo = 0;
+
+    function moverHoja(x, y) {
+      hoja.style.left = x + 'px';
+      hoja.style.top = y + 'px';
+    }
+
+    function crearEstrella(x, y) {
+      const ahora = Date.now();
+      if (ahora - ultimoTiempo < 30) return;
+      ultimoTiempo = ahora;
+
+      const estrella = document.createElement('div');
+      estrella.className = 'efecto-estrella';
+      estrella.innerHTML = '★';
+      estrella.style.left = x + 'px';
+      estrella.style.top = y + 'px';
+
+      const dx = (Math.random() - 0.5) * 40 + 'px';
+      const dy = (Math.random() * 30 + 15) + 'px';
+      estrella.style.setProperty('--dx', dx);
+      estrella.style.setProperty('--dy', dy);
+
+      document.body.appendChild(estrella);
+
+      setTimeout(() => {
+        estrella.remove();
+      }, 600);
+    }
+
+    window.addEventListener('touchstart', (e) => {
+      const touch = e.touches[0];
+      moverHoja(touch.clientX, touch.clientY);
+    }, { passive: true });
+
+    window.addEventListener('touchmove', (e) => {
+      const touch = e.touches[0];
+      moverHoja(touch.clientX, touch.clientY);
+      crearEstrella(touch.clientX, touch.clientY);
+    }, { passive: true });
+
+    window.addEventListener('mousemove', (e) => {
+      moverHoja(e.clientX, e.clientY);
+      crearEstrella(e.clientX, e.clientY);
+    });
+  </script>
+</body>
+</html>

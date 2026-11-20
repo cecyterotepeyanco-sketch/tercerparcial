@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f8fafc">
+  <meta name="description" content="Guía visual de repaso para un examen parcial.">
+  <title>Guía de repaso · Examen parcial</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+  <div class="page-layout">
+    <aside class="sidebar" aria-label="Navegación del resumen">
+      <a class="brand" href="#inicio" aria-label="Ir al inicio">
+        <span class="brand-mark" aria-hidden="true">R</span>
+        <span>Repaso<span class="brand-dot">.</span></span>
+      </a>
+      <p class="sidebar-label">EN ESTA GUÍA</p>
+      <nav class="section-nav">
+        <a class="nav-link is-active" href="#tema-1"><span class="nav-number">01</span> Ecosistemas</a>
+        <a class="nav-link" href="#tema-2"><span class="nav-number">02</span> Flujo de energía</a>
+        <a class="nav-link" href="#comparacion"><span class="nav-number">03</span> Comparación</a>
+        <a class="nav-link" href="#proceso"><span class="nav-number">04</span> Secuencia</a>
+        <a class="nav-link" href="#repaso-final"><span class="nav-number">05</span> Repaso final</a>
+      </nav>
+      <div class="sidebar-note">
+        <span class="note-icon" aria-hidden="true">✦</span>
+        <p><strong>Consejo de estudio</strong><br>Intenta explicar cada idea con tus propias palabras.</p>
+      </div>
+      <button class="print-button" type="button" data-print>Imprimir / Guardar PDF</button>
+    </aside>
+
+    <main id="contenido" class="main-content">
+      <!-- Reemplaza los marcadores del encabezado con los datos de tu parcial. -->
+      <header class="hero" id="inicio">
+        <div class="hero-topline">
+          <span class="eyebrow"><span class="status-dot"></span> GUÍA DE ESTUDIO</span>
+          <span class="hero-date">[Parcial / Fecha]</span>
+        </div>
+        <h1>Resumen del<br><span>examen parcial</span></h1>
+        <p class="hero-description">Una guía visual para repasar los conceptos esenciales, conectar ideas y llegar con confianza al examen.</p>
+        <div class="hero-meta">
+          <div><span class="meta-label">MATERIA</span><strong>[Materia]</strong></div>
+          <div><span class="meta-label">ESTUDIANTE</span><strong>[Nombre del Estudiante]</strong></div>
+          <div><span class="meta-label">UNIDAD</span><strong>Ecología · ejemplo</strong></div>
+        </div>
+        <div class="hero-decoration" aria-hidden="true"><span></span><span></span><span></span></div>
+      </header>
+
+      <div class="content-heading">
+        <div>
+          <p class="eyebrow">CONCEPTOS ESENCIALES</p>
+          <h2>Lo que necesitas saber</h2>
+        </div>
+        <span class="reading-time">5 min de repaso</span>
+      </div>
+
+      <!-- Reemplaza esta sección de muestra con el primer tema de tus apuntes. -->
+      <section class="topic-section" id="tema-1" aria-labelledby="tema-1-titulo">
+        <div class="topic-heading">
+          <span class="topic-index">01</span>
+          <div><p class="eyebrow">TEMA 01</p><h2 id="tema-1-titulo">Ecosistemas</h2></div>
+        </div>
+        <div class="card-grid">
+          <article class="info-card concept-card">
+            <div class="card-heading"><span class="card-icon icon-blue" aria-hidden="true">◎</span><h3>Concepto clave</h3></div>
+            <p>Un ecosistema reúne a los seres vivos y al entorno físico que interactúan en un lugar.</p>
+            <div class="tag-row"><span class="tag">Biotopo</span><span class="tag">Biocenosis</span><span class="tag">Interacción</span></div>
+          </article>
+          <article class="info-card formula-card">
+            <div class="card-heading"><span class="card-icon icon-blue" aria-hidden="true">∑</span><h3>Relación esencial</h3></div>
+            <div class="formula">Ecosistema <span>=</span> comunidad <span>+</span> ambiente</div>
+            <p class="card-caption">Los componentes se influyen mutuamente.</p>
+          </article>
+          <article class="info-card wide-card">
+            <div class="card-heading"><span class="card-icon icon-blue" aria-hidden="true">↗</span><h3>Ejemplo: un jardín</h3></div>
+            <p class="card-intro">Observa cómo se conectan sus elementos:</p>
+            <div class="flow-diagram" aria-label="Diagrama: luz y agua permiten el crecimiento de las plantas, que sostienen a los insectos">
+              <div class="flow-node"><span class="flow-symbol" aria-hidden="true">☼</span><strong>Luz + agua</strong><small>Factores físicos</small></div>
+              <span class="flow-arrow" aria-hidden="true">→</span>
+              <div class="flow-node"><span class="flow-symbol" aria-hidden="true">✿</span><strong>Plantas</strong><small>Productores</small></div>
+              <span class="flow-arrow" aria-hidden="true">→</span>
+              <div class="flow-node"><span class="flow-symbol" aria-hidden="true">♧</span><strong>Insectos</strong><small>Consumidores</small></div>
+            </div>
+          </article>
+          <aside class="exam-note">
+            <span class="note-icon" aria-hidden="true">!</span>
+            <div><strong>Clave para el examen</strong><p>No confundas el ecosistema (seres vivos <em>y</em> ambiente) con la comunidad (solo seres vivos).</p></div>
+          </aside>
+        </div>
+      </section>
+
+      <!-- Reemplaza esta sección de muestra con el segundo tema de tus apuntes. -->
+      <section class="topic-section" id="tema-2" aria-labelledby="tema-2-titulo">
+        <div class="topic-heading">
+          <span class="topic-index">02</span>
+          <div><p class="eyebrow">TEMA 02</p><h2 id="tema-2-titulo">Flujo de energía</h2></div>
+        </div>
+        <div class="card-grid">
+          <article class="info-card">
+            <div class="card-heading"><span class="card-icon icon-blue" aria-hidden="true">↯</span><h3>Concepto clave</h3></div>
+            <p>La energía entra principalmente como luz solar y pasa de un nivel trófico a otro.</p>
+            <ul class="compact-list"><li>Productores: captan energía.</li><li>Consumidores: la obtienen al alimentarse.</li><li>Descomponedores: reciclan materia.</li></ul>
+          </article>
+          <article class="info-card">
+            <div class="card-heading"><span class="card-icon icon-blue" aria-hidden="true">%</span><h3>Regla aproximada</h3></div>
+            <div class="formula">Energía siguiente ≈ <span>10%</span></div>
+            <p class="card-caption">En promedio, cerca del 10% pasa al nivel siguiente; el resto se usa o se disipa.</p>
+          </article>
+          <article class="info-card wide-card">
+            <div class="card-heading"><span class="card-icon icon-blue" aria-hidden="true">⌁</span><h3>Mini cadena alimentaria</h3></div>
+            <div class="food-chain">
+              <div><span aria-hidden="true">☼</span><strong>Sol</strong><small>Fuente</small></div><b aria-hidden="true">→</b>
+              <div><span aria-hidden="true">♧</span><strong>Pasto</strong><small>Productor</small></div><b aria-hidden="true">→</b>
+              <div><span aria-hidden="true">◉</span><strong>Saltamontes</strong><small>Consumidor</small></div><b aria-hidden="true">→</b>
+              <div><span aria-hidden="true">△</span><strong>Rana</strong><small>Consumidor</small></div>
+            </div>
+          </article>
+          <aside class="exam-note">
+            <span class="note-icon" aria-hidden="true">!</span>
+            <div><strong>Recuerda</strong><p>La energía fluye en una dirección; la materia, en cambio, puede reciclarse.</p></div>
+          </aside>
+        </div>
+      </section>
+
+      <!-- Sustituye o amplía la tabla con la comparación que te pidan estudiar. -->
+      <section class="topic-section" id="comparacion" aria-labelledby="comparacion-titulo">
+        <div class="topic-heading">
+          <span class="topic-index">03</span>
+          <div><p class="eyebrow">COMPARACIÓN RÁPIDA</p><h2 id="comparacion-titulo">Población vs. comunidad</h2></div>
+        </div>
+        <div class="info-card table-card">
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th scope="col">Criterio</th><th scope="col">Población</th><th scope="col">Comunidad</th></tr></thead>
+              <tbody>
+                <tr><th scope="row">¿Quiénes?</th><td>Individuos de una misma especie</td><td>Poblaciones de distintas especies</td></tr>
+                <tr><th scope="row">Ejemplo</th><td>Todos los saltamontes del jardín</td><td>Plantas, insectos, aves y hongos</td></tr>
+                <tr><th scope="row">Enfoque</th><td>Tamaño y crecimiento</td><td>Relaciones entre especies</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- Cambia las etapas y descripciones según el proceso de tus apuntes. -->
+      <section class="topic-section" id="proceso" aria-labelledby="proceso-titulo">
+        <div class="topic-heading">
+          <span class="topic-index">04</span>
+          <div><p class="eyebrow">PROCESO EN ETAPAS</p><h2 id="proceso-titulo">Cómo fluye la energía</h2></div>
+        </div>
+        <article class="info-card timeline-card">
+          <ol class="timeline">
+            <li><span class="timeline-point">01</span><div><strong>Captura</strong><p>Los productores captan energía solar.</p></div></li>
+            <li><span class="timeline-point">02</span><div><strong>Transferencia</strong><p>La energía pasa al consumidor cuando se alimenta.</p></div></li>
+            <li><span class="timeline-point">03</span><div><strong>Disipación</strong><p>Parte de la energía se transforma en calor en cada nivel.</p></div></li>
+          </ol>
+        </article>
+      </section>
+
+      <!-- Reemplaza este cierre con las preguntas o ideas que quieras memorizar. -->
+      <section class="topic-section final-section" id="repaso-final" aria-labelledby="repaso-titulo">
+        <div class="topic-heading">
+          <span class="topic-index">05</span>
+          <div><p class="eyebrow">ANTES DE TERMINAR</p><h2 id="repaso-titulo">Repaso final</h2></div>
+        </div>
+        <div class="review-grid">
+          <article class="review-item"><span>01</span><p>¿Qué elementos forman un ecosistema?</p></article>
+          <article class="review-item"><span>02</span><p>¿En qué se diferencian población y comunidad?</p></article>
+          <article class="review-item"><span>03</span><p>¿Por qué disminuye la energía entre niveles tróficos?</p></article>
+        </div>
+      </section>
+
+      <footer class="page-footer"><span>Hecho para estudiar mejor.</span><span>[Materia] · [Parcial / Fecha]</span></footer>
+    </main>
+  </div>
+</body>
+</html>

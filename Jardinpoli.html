@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🌸 Jardín Polinizador</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800;900&family=Playfair+Display:wght@700;900&display=swap');
+
+:root {
+  --verde: #164b35;
+  --verde2: #287849;
+  --lima: #c9f36b;
+  --crema: #fff9e9;
+  --rosa: #ff70ad;
+  --amarillo: #ffd95a;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Nunito', sans-serif;
+  color: var(--verde);
+  background: var(--crema);
+  overflow-x: hidden;
+}
+
+button, input { font: inherit; }
+
+/* 🌸 CURSOR FLORAL PERSONALIZADO */
+@media (hover: hover) and (pointer: fine) {
+  * {
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cg transform='translate(16 16)'%3E%3Cellipse cy='-7' rx='5' ry='8' fill='%23ff70ad'/%3E%3Cellipse cy='7' rx='5' ry='8' fill='%23ff70ad'/%3E%3Cellipse cx='-7' rx='8' ry='5' fill='%23ff9ecb'/%3E%3Cellipse cx='7' rx='8' ry='5' fill='%23ff9ecb'/%3E%3Ccircle r='5' fill='%23ffd95a'/%3E%3C/g%3E%3C/svg%3E") 16 16, auto;
+  }
+}
+
+/* Flores que aparecen al mover el cursor o el dedo */
+.florecita-cursor {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 99999;
+  pointer-events: none;
+  font-size: 23px;
+  line-height: 1;
+  transform: translate(-50%, -50%);
+  animation: florDesaparece .9s ease-out forwards;
+  filter: drop-shadow(0 2px 3px #164b3540);
+  will-change: transform, opacity;
+}
+
+@keyframes florDesaparece {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(.5) rotate(0deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -100%) scale(1.5) rotate(100deg);
+  }
+}
+
+/* BARRA SUPERIOR */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 15px 6%;
+  background: rgba(255,249,233,.93);
+  backdrop-filter: blur(14px);
+  border-bottom: 2px solid #d6e9b9;
+}
+
+.logo { font-size: 20px; font-weight: 900; }
+.logo span { color: #e45d94; }
+
+nav a {
+  color: var(--verde);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+/* PORTADA */
+.hero {
+  position: relative;
+  min-height: 590px;
+  padding: 70px 7% 85px;
+  overflow: hidden;
+  color: white;
+  background:
+    radial-gradient(ellipse at 80% 20%,#77bb68 0%,transparent 35%),
+    radial-gradient(ellipse at 15% 100%,#f1a5b9 0%,transparent 38%),
+    linear-gradient(135deg,#103d2d,#226844 60%,#65984a);
+}
+
+.hero::before {
+  content: "✿";
+  position: absolute;
+  font-size: 330px;
+  right: -40px;
+  top: 60px;
+  color: rgba(255,255,255,.07);
+  animation: girar 35s linear infinite;
+}
+
+.hero::after {
+  content: "❋";
+  position: absolute;
+  font-size: 180px;
+  right: 22%;
+  bottom: -70px;
+  color: rgba(255,217,90,.13);
+  animation: girar 25s linear infinite reverse;
+}
+
+@keyframes girar { to { transform: rotate(360deg); } }
+
+.hero-contenido { position: relative; z-index: 2; max-width: 760px; }
+
+.etiqueta {
+  display: inline-block;
+  padding: 9px 17px;
+  border: 1px solid rgba(255,255,255,.4);
+  border-radius: 50px;
+  background: rgba(255,255,255,.12);
+  letter-spacing: 2px;
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.hero h1 {
+  margin: 24px 0;
+  font-family: 'Playfair Display',serif;
+  font-size: clamp(45px,9vw,95px);
+  line-height: .98;
+  letter-spacing: -3px;
+}
+
+.hero h1 span { display: block; color: var(--lima); }
+
+.hero p {
+  max-width: 560px;
+  color: #e2f4df;
+  font-size: 17px;
+  line-height: 1.8;
+}
+
+.boton {
+  display: inline-block;
+  margin-top: 25px;
+  padding: 15px 23px;
+  border: 0;
+  border-radius: 50px;
+  color: #173c28;
+  background: var(--lima);
+  text-decoration: none;
+  font-weight: 900;
+  box-shadow: 0 8px 0 rgba(0,0,0,.12);
+  transition: .25s;
+}
+
+.boton:hover { transform: translateY(-4px); box-shadow: 0 12px 25px #071d153d; }
+
+.flor-flotante {
+  position: absolute;
+  font-size: 36px;
+  animation: flotar 4s ease-in-out infinite;
+}
+.f1 { right: 12%; top: 18%; }
+.f2 { right: 25%; top: 62%; animation-delay: 1s; }
+.f3 { right: 6%; bottom: 15%; animation-delay: 2s; }
+
+@keyframes flotar {
+  0%,100% { transform: translateY(0) rotate(-8deg); }
+  50% { transform: translateY(-20px) rotate(12deg); }
+}
+
+/* CINTA */
+.cinta {
+  overflow: hidden;
+  padding: 15px 0;
+  color: #214b30;
+  background: var(--lima);
+  font-weight: 900;
+  white-space: nowrap;
+}
+.cinta div {
+  display: inline-block;
+  min-width: max-content;
+  animation: correr 24s linear infinite;
+}
+@keyframes correr { to { transform: translateX(-50%); } }
+
+/* SECCIONES */
+.seccion { padding: 75px 6%; }
+
+.encabezado {
+  max-width: 720px;
+  margin: 0 auto 35px;
+  text-align: center;
+}
+
+.mini {
+  color: #d45487;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+.encabezado h2 {
+  margin: 12px 0;
+  font-family: 'Playfair Display',serif;
+  font-size: clamp(32px,6vw,55px);
+  line-height: 1.1;
+}
+
+.encabezado p { color: #63806a; line-height: 1.8; }
+
+/* BENEFICIOS */
+.beneficios {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 15px;
+  margin: -45px 6% 0;
+  position: relative;
+  z-index: 3;
+}
+
+.beneficio {
+  padding: 25px 12px;
+  border: 1px solid #e4e7ce;
+  border-radius: 22px;
+  background: white;
+  text-align: center;
+  box-shadow: 0 15px 40px #183c2010;
+  transition: .3s;
+}
+.beneficio:hover { transform: translateY(-8px); }
+.beneficio .emoji { font-size: 34px; }
+.beneficio h3 { margin: 8px 0; font-size: 15px; }
+.beneficio p { color: #789078; font-size: 12px; line-height: 1.5; }
+
+/* BANNER */
+.banner-came {
+  height: clamp(300px, 48vw, 560px);
+  margin-top: 55px;
+  overflow: hidden;
+}
+.banner-came img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* GALERÍA */
+.galeria {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 20px;
+  max-width: 1100px;
+  margin: auto;
+}
+
+.planta {
+  --acento: #ef8bb5;
+  position: relative;
+  overflow: hidden;
+  border-radius: 25px;
+  background: white;
+  border: 1px solid #e6eadc;
+  box-shadow: 0 12px 35px #183c2010;
+  transition: transform .35s, box-shadow .35s;
+}
+.planta:hover { transform: translateY(-8px); box-shadow: 0 22px 45px #183c2020; }
+.planta:nth-child(2) { --acento: #a95be2; }
+
+.foto {
+  position: relative;
+  height: 250px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 25% 25%,#ffffffa0 0 3px,transparent 4px),
+    linear-gradient(135deg,#e5f3d8,#b3d5a3);
+}
+
+.foto img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform .6s;
+}
+.planta:hover .foto img { transform: scale(1.07); }
+
+.numero {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  z-index: 2;
+  padding: 7px 12px;
+  border-radius: 30px;
+  color: #173c28;
+  background: #ffffffdd;
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.foto-vacia {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 15px;
+  color: #47744d;
+  text-align: center;
+}
+.foto-vacia .icono {
+  display: grid;
+  place-items: center;
+  width: 72px;
+  height: 72px;
+  border: 2px dashed #80a77a;
+  border-radius: 50%;
+  background: #ffffff80;
+  font-size: 34px;
+  transition: .3s;
+}
+.planta:hover .icono { transform: rotate(12deg) scale(1.1); }
+.foto-vacia strong { font-size: 14px; }
+.foto-vacia small { font-size: 11px; }
+
+.info { padding: 22px; }
+.tipo {
+  color: var(--acento);
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+.info h3 {
+  margin: 6px 0 10px;
+  color: #214c32;
+  font-family: 'Playfair Display',serif;
+  font-size: 27px;
+}
+.info p {
+  min-height: 60px;
+  color: #70816d;
+  font-size: 13px;
+  line-height: 1.7;
+}
+.dato {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 8px 11px;
+  border-radius: 30px;
+  background: #f1f6e9;
+  color: #426a3d;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.subir {
+  display: block;
+  margin-top: 14px;
+  padding: 12px;
+  border: 2px solid var(--acento);
+  border-radius: 12px;
+  color: #36563a;
+  background: white;
+  font-size: 12px;
+  font-weight: 900;
+  text-align: center;
+  cursor: pointer;
+  transition: .25s;
+}
+.subir:hover { background: var(--acento); color: white; }
+.subir input { display: none; }
+
+/* IMPORTANCIA */
+.importancia { color: white; background: #174b35; }
+.importancia .encabezado p { color: #d1e6cf; }
+.datos-grid {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 15px;
+  max-width: 1100px;
+  margin: auto;
+}
+.dato-card {
+  padding: 25px 12px;
+  border: 1px solid #ffffff25;
+  border-radius: 20px;
+  background: #ffffff0b;
+  text-align: center;
+  transition: .3s;
+}
+.dato-card:hover { background: #ffffff18; transform: scale(1.03); }
+.dato-card span { font-size: 36px; }
+.dato-card h3 { margin: 12px 0 8px; color: var(--lima); }
+.dato-card p { color: #d0e4d0; font-size: 12px; line-height: 1.7; }
+
+/* CONSEJOS */
+.consejos {
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  gap: 14px;
+  max-width: 900px;
+  margin: auto;
+}
+.consejo {
+  display: flex;
+  gap: 13px;
+  align-items: flex-start;
+  padding: 19px;
+  border-radius: 18px;
+  background: white;
+  border: 1px solid #e9ebdb;
+}
+.consejo span { font-size: 27px; }
+.consejo h3 { margin-bottom: 5px; font-size: 15px; }
+.consejo p { color: #71846f; font-size: 12px; line-height: 1.6; }
+
+/* PIE */
+footer {
+  padding: 40px 20px;
+  color: #e8f4df;
+  background: #0e3325;
+  text-align: center;
+}
+footer .flor { font-size: 35px; }
+footer h2 { margin: 10px 0; font-family: 'Playfair Display',serif; color: var(--lima); }
+footer p { font-size: 12px; line-height: 1.8; }
+.arriba {
+  display: inline-block;
+  margin-top: 20px;
+  color: #173c28;
+  background: var(--lima);
+  border-radius: 50px;
+  padding: 10px 17px;
+  text-decoration: none;
+  font-weight: 900;
+}
+
+/* CELULARES */
+@media(max-width:600px) {
+  nav { padding: 13px 4%; }
+  .logo { font-size: 16px; }
+  nav a { font-size: 11px; }
+  .hero { min-height: 540px; padding: 65px 7%; }
+  .hero h1 { letter-spacing: -2px; }
+  .hero p { font-size: 14px; }
+  .beneficios { gap: 8px; margin-left: 4%; margin-right: 4%; }
+  .beneficio { padding: 17px 6px; }
+  .beneficio .emoji { font-size: 26px; }
+  .beneficio h3 { font-size: 12px; }
+  .beneficio p { font-size: 10px; }
+  .seccion { padding: 60px 4%; }
+  .galeria { gap: 12px; }
+  .foto { height: 160px; }
+  .info { padding: 14px; }
+  .info h3 { font-size: 21px; }
+  .info p { font-size: 12px; }
+  .datos-grid { grid-template-columns: repeat(2,1fr); }
+  .consejos { grid-template-columns: 1fr; }
+  .foto-vacia .icono { width: 55px; height: 55px; font-size: 27px; }
+}
+
+@media(prefers-reduced-motion:reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+</style>
+</head>
+
+<body id="inicio">
+
+<nav>
+  <div class="logo">🌿 JARDÍN<span> VIVO</span></div>
+  <a href="#plantas">EXPLORAR PLANTAS ↓</a>
+</nav>
+
+<section class="hero">
+  <div class="flor-flotante f1">🌼</div>
+  <div class="flor-flotante f2">🦋</div>
+  <div class="flor-flotante f3">🐝</div>
+
+  <div class="hero-contenido">
+    <span class="etiqueta">🌎 PROYECTO ECOLÓGICO</span>
+    <h1>Un pequeño jardín.<span>Un gran cambio.</span></h1>
+    <p>
+      Bienvenido a nuestro jardín polinizador, un espacio
+      lleno de vida donde las flores alimentan a las abejas,
+      las mariposas y otros visitantes que ayudan a la naturaleza.
+    </p>
+    <a class="boton" href="#plantas">🌸 DESCUBRIR LAS PLANTAS</a>
+  </div>
+</section>
+
+<div class="cinta">
+  <div>
+    🌼 FLORES PARA LA VIDA · 🐝 PROTEJAMOS A LOS POLINIZADORES ·
+    🦋 MÁS NATURALEZA · 🌿 MÁS VIDA · 🌼 FLORES PARA LA VIDA ·
+    🐝 PROTEJAMOS A LOS POLINIZADORES · 🦋 MÁS NATURALEZA · 🌿 MÁS VIDA ·
+  </div>
+</div>
+
+<section class="beneficios">
+  <div class="beneficio">
+    <div class="emoji">🐝</div><h3>Alimento</h3>
+    <p>Néctar y polen para los visitantes del jardín.</p>
+  </div>
+  <div class="beneficio">
+    <div class="emoji">🌺</div><h3>Biodiversidad</h3>
+    <p>Más plantas y animales en un mismo lugar.</p>
+  </div>
+  <div class="beneficio">
+    <div class="emoji">🌱</div><h3>Vida verde</h3>
+    <p>Un espacio natural que podemos cuidar.</p>
+  </div>
+</section>
+
+<div class="banner-came">
+  <img src="came.jpg" alt="Comunidad escolar en una exposición de proyectos">
+</div>
+
+<section class="seccion" id="plantas">
+  <div class="encabezado">
+    <span class="mini">🌿 CONOCE NUESTRO JARDÍN</span>
+    <h2>Las estrellas del jardín</h2>
+    <p>Conoce las bugambilias y lantanas de nuestro jardín, dos plantas que aportan color y recursos para los polinizadores.</p>
+  </div>
+
+  <div class="galeria">
+    <article class="planta">
+      <div class="foto">
+        <span class="numero">01 / PLANTA</span>
+        <img src="lantana.jpg" alt="Flores de lantana" onerror="this.style.display='none'">
+        <div class="foto-vacia"><div class="icono">🌼</div><strong>Foto de las lantanas</strong><small>Agrega aquí tu fotografía</small></div>
+      </div>
+      <div class="info">
+        <span class="tipo">Flores coloridas</span><h3>Lantanas</h3>
+        <p>Sus agrupaciones de pequeñas flores ofrecen néctar y pueden atraer mariposas y otros polinizadores. Sus colores iluminan cualquier jardín.</p>
+        <span class="dato">🦋 Visitantes: mariposas y abejas</span>
+        <label class="subir">📸 SUBIR FOTO DE LANTANAS<input type="file" accept="image/*" onchange="ponerFoto(this)"></label>
+      </div>
+    </article>
+
+    <article class="planta">
+      <div class="foto">
+        <span class="numero">02 / PLANTA</span>
+        <img src="bugambilia.jpg" alt="Bugambilia en flor" onerror="this.style.display='none'">
+        <div class="foto-vacia"><div class="icono">🌺</div><strong>Foto de la bugambilia</strong><small>Agrega aquí tu fotografía</small></div>
+      </div>
+      <div class="info">
+        <span class="tipo">Color y resistencia</span><h3>Bugambilia</h3>
+        <p>Es una planta ornamental resistente una vez establecida. Sus pequeñas flores verdaderas están rodeadas por brácteas de colores llamativos.</p>
+        <span class="dato">🌸 Visitantes: según sus flores y entorno</span>
+        <label class="subir">📸 SUBIR FOTO DE BUGAMBILIA<input type="file" accept="image/*" onchange="ponerFoto(this)"></label>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<section class="seccion importancia">
+  <div class="encabezado">
+    <span class="mini" style="color:#c9f36b">🐝 PEQUEÑOS SERES, GRAN IMPACTO</span>
+    <h2>¿Por qué cuidar a los polinizadores?</h2>
+    <p>Los polinizadores ayudan a muchas plantas a reproducirse y contribuyen al equilibrio de los ecosistemas.</p>
+  </div>
+  <div class="datos-grid">
+    <div class="dato-card"><span>🐝</span><h3>Abejas</h3><p>Transportan polen mientras visitan las flores.</p></div>
+    <div class="dato-card"><span>🦋</span><h3>Mariposas</h3><p>Buscan néctar y pueden transportar polen.</p></div>
+    <div class="dato-card"><span>🌼</span><h3>Flores</h3><p>Proporcionan recursos importantes para los visitantes.</p></div>
+    <div class="dato-card"><span>🌎</span><h3>Ecosistema</h3><p>La diversidad de plantas ayuda a sostener la vida.</p></div>
+  </div>
+</section>
+
+<section class="seccion">
+  <div class="encabezado">
+    <span class="mini">🌱 CUIDAR ES TRANSFORMAR</span><h2>Consejos para tu jardín</h2>
+    <p>Pequeñas acciones que pueden marcar una diferencia.</p>
+  </div>
+  <div class="consejos">
+    <div class="consejo"><span>💧</span><div><h3>Riega con cuidado</h3><p>Adapta el riego a cada especie y evita encharcar las raíces.</p></div></div>
+    <div class="consejo"><span>☀️</span><div><h3>Busca buena iluminación</h3><p>Investiga cuánta luz necesita cada planta.</p></div></div>
+    <div class="consejo"><span>🚫</span><div><h3>Evita pesticidas dañinos</h3><p>Prioriza métodos de control que protejan a los polinizadores.</p></div></div>
+    <div class="consejo"><span>🌿</span><div><h3>Elige plantas adecuadas</h3><p>Considera las especies nativas y el clima de tu región.</p></div></div>
+  </div>
+</section>
+
+<footer>
+  <div class="flor">🌻 🦋 🌼</div>
+  <h2>Un jardín lleno de vida</h2>
+  <p>Proyecto de jardín polinizador<br>Cuidar las flores es cuidar nuestro planeta.</p>
+  <a class="arriba" href="#inicio">↑ VOLVER AL INICIO</a>
+</footer>
+
+<script>
+function ponerFoto(input) {
+  const archivo = input.files && input.files[0];
+  if (!archivo) return;
+
+  if (!archivo.type.startsWith('image/')) {
+    alert('Selecciona un archivo de imagen.');
+    return;
+  }
+
+  const tarjeta = input.closest('.planta');
+  const foto = tarjeta.querySelector('.foto');
+  let imagen = foto.querySelector('img');
+
+  if (!imagen) {
+    imagen = document.createElement('img');
+    imagen.alt = 'Fotografía de la planta';
+    foto.appendChild(imagen);
+  }
+
+  if (imagen.dataset.urlTemporal) {
+    URL.revokeObjectURL(imagen.dataset.urlTemporal);
+  }
+
+  const url = URL.createObjectURL(archivo);
+  imagen.src = url;
+  imagen.dataset.urlTemporal = url;
+  imagen.style.display = 'block';
+
+  const espacio = foto.querySelector('.foto-vacia');
+  if (espacio) espacio.style.display = 'none';
+}
+
+/* 🌸 ESTELA DE FLORES DEL CURSOR */
+const floresCursor = ['🌸', '🌼', '🌺', '🌷', '🌻', '🌿'];
+let ultimaFlor = 0;
+
+document.addEventListener('pointermove', function(e) {
+  const ahora = Date.now();
+  if (ahora - ultimaFlor < 75) return;
+  ultimaFlor = ahora;
+
+  const flor = document.createElement('span');
+  flor.className = 'florecita-cursor';
+  flor.textContent = floresCursor[
+    Math.floor(Math.random() * floresCursor.length)
+  ];
+  flor.style.left = e.clientX + 'px';
+  flor.style.top = e.clientY + 'px';
+
+  document.body.appendChild(flor);
+  setTimeout(() => flor.remove(), 900);
+});
+</script>
+
+</body>
+</html>

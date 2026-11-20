@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Felices Fiestas! - Edición Neón Blanco</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&family=Satisfy&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            cursor: none;
+        }
+
+        body {
+            min-height: 100vh;
+            background: radial-gradient(circle at top, #ffffff 40%, #f4f9ff 80%, #fdf2f8 100%);
+            font-family: 'Quicksand', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            overflow-x: hidden;
+            position: relative;
+            padding: 40px 20px;
+            border: 6px solid #ffffff;
+            box-shadow: 
+                inset 0 0 25px rgba(0, 210, 255, 0.35),
+                inset 0 0 50px rgba(255, 0, 128, 0.2);
+        }
+
+        /* Cursor personalizado con emoji */
+        #custom-cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            font-size: 34px;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            filter: drop-shadow(0 0 8px rgba(0, 210, 255, 0.8)) 
+                    drop-shadow(0 0 14px rgba(255, 0, 128, 0.6));
+            transition: transform 0.08s ease-out;
+            user-select: none;
+        }
+
+        #custom-cursor.click-pop {
+            transform: translate(-50%, -50%) scale(1.45) rotate(12deg);
+        }
+
+        /* Contenedor principal */
+        .main-container {
+            text-align: center;
+            max-width: 850px;
+            width: 100%;
+            z-index: 2;
+        }
+
+        h1 {
+            font-family: 'Satisfy', cursive;
+            font-size: clamp(3rem, 7vw, 5.2rem);
+            color: #ffffff;
+            text-shadow: 
+                0 0 4px #ff007f,
+                0 0 12px #ff007f,
+                0 0 25px #ff66b2,
+                0 0 45px #00d2ff;
+            margin-bottom: 10px;
+            animation: pulseNeon 3s infinite alternate;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #334155;
+            background: rgba(255, 255, 255, 0.85);
+            display: inline-block;
+            padding: 8px 22px;
+            border-radius: 50px;
+            border: 2px solid #ffffff;
+            box-shadow: 
+                0 0 12px rgba(0, 210, 255, 0.5),
+                0 0 22px rgba(168, 85, 247, 0.3);
+            margin-bottom: 40px;
+        }
+
+        /* Cuadrícula para organizar los apartados festivos */
+        .sections-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 25px;
+            width: 100%;
+            margin-bottom: 30px;
+        }
+
+        /* Estilo base para cada tarjeta / apartado */
+        .festive-card {
+            background: rgba(255, 255, 255, 0.92);
+            border: 3px solid #ffffff;
+            border-radius: 24px;
+            padding: 30px 20px;
+            text-align: center;
+            position: relative;
+            transition: all 0.35s ease;
+            box-shadow: 
+                0 0 15px rgba(0, 210, 255, 0.5),
+                0 0 25px rgba(255, 0, 128, 0.25),
+                inset 0 0 15px rgba(0, 210, 255, 0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .festive-card:hover {
+            transform: translateY(-6px) scale(1.02);
+            box-shadow: 
+                0 0 22px rgba(0, 210, 255, 0.9),
+                0 0 40px rgba(255, 0, 128, 0.5),
+                inset 0 0 25px rgba(255, 215, 0, 0.35);
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 12px;
+            display: block;
+            filter: drop-shadow(0 0 10px rgba(255, 180, 0, 0.7));
+        }
+
+        .card-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #0f172a;
+            text-shadow: 0 0 8px rgba(0, 210, 255, 0.5);
+            margin-bottom: 10px;
+        }
+
+        .card-desc {
+            font-size: 0.95rem;
+            color: #475569;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .neon-btn {
+            display: inline-block;
+            padding: 10px 24px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: #0077b6;
+            background: #ffffff;
+            border: 2px solid #00d2ff;
+            border-radius: 30px;
+            box-shadow: 
+                0 0 10px #00d2ff,
+                inset 0 0 8px rgba(0, 210, 255, 0.3);
+            transition: all 0.3s ease;
+            cursor: none;
+        }
+
+        .festive-card:hover .neon-btn,
+        .neon-btn:hover {
+            background: #f0f9ff;
+            color: #d90429;
+            border-color: #ff007f;
+            box-shadow: 
+                0 0 15px #ff007f,
+                0 0 25px #00d2ff;
+        }
+
+        /* Modal con el Iframe de carta.html */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            z-index: 100;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.35s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .iframe-container {
+            background: #ffffff;
+            border: 4px solid #ffffff;
+            border-radius: 28px;
+            max-width: 650px;
+            width: 100%;
+            height: 520px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            transform: scale(0.85) translateY(20px);
+            transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 
+                0 0 25px rgba(0, 210, 255, 0.8),
+                0 0 50px rgba(255, 0, 128, 0.45),
+                inset 0 0 20px rgba(0, 210, 255, 0.2);
+        }
+
+        .modal-overlay.active .iframe-container {
+            transform: scale(1) translateY(0);
+        }
+
+        .carta-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 16px;
+            background: #f8fafc;
+        }
+
+        .close-btn-container {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .hint-text {
+            margin-top: 15px;
+            font-size: 0.9rem;
+            color: #64748b;
+            text-shadow: 0 0 8px rgba(0, 210, 255, 0.4);
+        }
+
+        /* Destellos flotantes de fondo */
+        .sparkle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #ffffff;
+            border-radius: 50%;
+            pointer-events: none;
+            box-shadow: 0 0 12px #00d2ff, 0 0 20px #ff007f;
+            animation: floatUp linear infinite;
+            opacity: 0.75;
+        }
+
+        @keyframes pulseNeon {
+            0% {
+                text-shadow: 
+                    0 0 4px #ff007f,
+                    0 0 12px #ff007f,
+                    0 0 25px #00d2ff;
+            }
+            100% {
+                text-shadow: 
+                    0 0 6px #00d2ff,
+                    0 0 18px #00d2ff,
+                    0 0 35px #ff007f,
+                    0 0 50px #ffd700;
+            }
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh) scale(0.5);
+                opacity: 0;
+            }
+            50% {
+                opacity: 0.9;
+            }
+            100% {
+                transform: translateY(-10vh) scale(1.2);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Puntero personalizado con emoji -->
+    <div id="custom-cursor">🎅</div>
+
+    <div class="main-container">
+        <h1>¡Felices Fiestas!</h1>
+        <p class="subtitle">Que la luz, la alegría y la magia iluminen tu Navidad ✨</p>
+
+        <!-- Cuadrícula con múltiples apartados festivos -->
+        <div class="sections-grid">
+            
+            <!-- Apartado 1: Carta de Navidad (Iframe) -->
+            <div class="festive-card">
+                <div>
+                    <span class="card-icon">✉️🎄</span>
+                    <div class="card-title">Carta de Navidad</div>
+                    <p class="card-desc">Abre este espacio interactivo para desplegar tu archivo <strong>carta.html</strong> en pantalla.</p>
+                </div>
+                <button type="button" class="neon-btn" id="open-modal-btn">Ver Carta ✨</button>
+            </div>
+
+            <!-- Apartado 2: Música y Villancicos -->
+            <div class="festive-card">
+                <div>
+                    <span class="card-icon">🎵🎶</span>
+                    <div class="card-title">Ambiente Navideño</div>
+                    <p class="card-desc">Siente el espíritu festivo con melodías clásicas y canciones alegres para la temporada.</p>
+                </div>
+                <button type="button" class="neon-btn" onclick="alert('¡Que suenen los villancicos y la alegría en tu hogar! 🎶✨')">Reproducir 🎧</button>
+            </div>
+
+            <!-- Apartado 3: Deseos de Año Nuevo -->
+            <div class="festive-card">
+                <div>
+                    <span class="card-icon">🌟🥂</span>
+                    <div class="card-title">Deseos y Metas</div>
+                    <p class="card-desc">Un espacio para visualizar tus sueños, propósitos y los mejores éxitos para el próximo año.</p>
+                </div>
+                <button type="button" class="neon-btn" onclick="alert('¡Que cada meta que te propongas brille con fuerza este nuevo año! 💫')">Ver Deseos 🌠</button>
+            </div>
+
+            <!-- Apartado 4: Galería de Regalos y Magia -->
+            <div class="festive-card">
+                <div>
+                    <span class="card-icon">🎁✨</span>
+                    <div class="card-title">Sorpresa Festiva</div>
+                    <p class="card-desc">Descubre un detalle especial de agradecimiento y cariño para compartir estas fiestas.</p>
+                </div>
+                <button type="button" class="neon-btn" onclick="alert('¡El mejor regalo es la magia de compartir momentos inolvidables! ❤️')">Abrir Sorpresa 🎀</button>
+            </div>
+
+        </div>
+
+        <p class="hint-text">💡 Haz clic en cualquier parte de la pantalla para cambiar tu puntero (🎅 → 🎄 → ⛄)</p>
+    </div>
+
+    <!-- Pantalla emergente que contiene el Iframe de carta.html -->
+    <div class="modal-overlay" id="modal-overlay">
+        <div class="iframe-container">
+            <iframe src="carta.html" class="carta-iframe" title="Carta de Navidad"></iframe>
+            <div class="close-btn-container">
+                <button type="button" class="neon-btn" id="close-modal-btn">Cerrar Carta ✕</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const cursor = document.getElementById('custom-cursor');
+        const emojis = ['🎅', '🎄', '⛄'];
+        let currentIndex = 0;
+
+        const openBtn = document.getElementById('open-modal-btn');
+        const closeBtn = document.getElementById('close-modal-btn');
+        const modal = document.getElementById('modal-overlay');
+
+        openBtn.addEventListener('click', () => {
+            modal.classList.add('active');
+        });
+
+        closeBtn.addEventListener('click', () => {
+            modal.classList.remove('active');
+        });
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('active');
+            }
+        });
+
+        // Seguir el movimiento del mouse
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = `${e.clientX}px`;
+            cursor.style.top = `${e.clientY}px`;
+        });
+
+        // Cambiar de emoji con cada clic
+        document.addEventListener('click', (e) => {
+            cursor.style.left = `${e.clientX}px`;
+            cursor.style.top = `${e.clientY}px`;
+
+            currentIndex = (currentIndex + 1) % emojis.length;
+            cursor.textContent = emojis[currentIndex];
+
+            cursor.classList.remove('click-pop');
+            void cursor.offsetWidth;
+            cursor.classList.add('click-pop');
+        });
+
+        // Destellos neón flotantes
+        function createSparkles() {
+            const count = 22;
+            for (let i = 0; i < count; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.classList.add('sparkle');
+                sparkle.style.left = `${Math.random() * 100}vw`;
+                sparkle.style.animationDuration = `${6 + Math.random() * 8}s`;
+                sparkle.style.animationDelay = `${Math.random() * 5}s`;
+                const size = 6 + Math.random() * 8;
+                sparkle.style.width = `${size}px`;
+                sparkle.style.height = `${size}px`;
+                document.body.appendChild(sparkle);
+            }
+        }
+
+        createSparkles();
+    </script>
+</body>
+</html>
