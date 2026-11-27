@@ -304,10 +304,13 @@
             <div class="festive-card">
                 <div>
                     <span class="card-icon">🎵🎶</span>
-                    <div class="card-title">Ambiente Navideño</div>
-                    <p class="card-desc">Siente el espíritu festivo con melodías clásicas y canciones alegres para la temporada.</p>
+                    <div class="card-title">Villancico navideño</div>
+                    <p class="card-desc">Reproduce el villancico para disfrutar del ambiente navideño.</p>
                 </div>
-                <button type="button" class="neon-btn" onclick="alert('¡Que suenen los villancicos y la alegría en tu hogar! 🎶✨')">Reproducir 🎧</button>
+                <video controls playsinline preload="metadata" aria-label="Villancico navideño">
+                    <source src="villancico.mp4" type="video/mp4">
+                    Tu navegador no puede reproducir este video.
+                </video>
             </div>
 
             <!-- Apartado 3: Deseos de Año Nuevo -->
@@ -402,6 +405,11 @@
                 document.body.appendChild(sparkle);
             }
         }
+
+        createSparkles();
+    </script>
+</body>
+</html>
 
         createSparkles();
     </script>
